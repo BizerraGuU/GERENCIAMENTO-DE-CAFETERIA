@@ -1,0 +1,323 @@
+/* Estilos gerais */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f1e4;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que o corpo ocupe a altura total da tela */
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #a55728;
+    color: #fff;
+}
+
+.navbar .logo img {
+    height: 50px;
+}
+
+.navbar .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+.navbar .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.navbar .nav-links a:hover {
+    background-color: #7a3f1e;
+}
+
+/* Container de produtos */
+.produtos-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Card do Produto */
+.produto {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.produto img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.produto h3 {
+    color: #a55728;
+}
+
+.produto p {
+    margin: 5px 0;
+}
+
+.produto .preco {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.produto button {
+    background-color: #a55728;
+    color: white;
+    border: none;
+    padding: 8px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.produto button:hover {
+    background-color: #7a3f1e;
+}
+
+/* Rodapé fixo */
+.rodape {
+    text-align: center;
+    padding: 1rem;
+    background-color: #a55728;
+    color: #fff;
+    margin-top: auto; /* Faz o rodapé ficar no final sem sobrepor o conteúdo */
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Botão de fechar dentro do modal */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #a55728;
+}
+
+/* Formulário dentro do modal */
+#form-editar-produto {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#form-editar-produto label {
+    text-align: left;
+    font-weight: bold;
+}
+
+#form-editar-produto input, 
+#form-editar-produto textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+#form-editar-produto textarea {
+    height: 80px;
+    resize: none;
+}
+
+/* Pré-visualização da imagem dentro do modal */
+.editar-imagem-preview-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#editar-imagem-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Botão para salvar alterações */
+.save-btn {
+    background-color: #a55728;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.save-btn:hover {
+    background-color: #7a3f1e;
+}
+
+/* Botão para abrir o menu retrátil */
+.open-menu-btn {
+    background-color: #a55728;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.open-menu-btn:hover {
+    background-color: #7a3f1e;
+}
+
+/* Menu retrátil */
+.menu-retratil {
+    position: fixed;
+    top: 0;
+    right: -350px;
+    width: 300px;
+    height: 100%;
+    background: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    transition: right 0.3s ease-in-out;
+    overflow-y: auto;
+}
+
+.menu-retratil.show {
+    right: 0;
+}
+
+.close-btn {
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+    color: #a55728;
+}
+
+/* Formulário dentro do menu retrátil */
+#form-produto {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#form-produto input, #form-produto textarea {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+#form-produto textarea {
+    height: 60px;
+    resize: none;
+}
+
+/* Pré-visualização do card do produto */
+.produto-preview {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 10px;
+}
+
+.produto-preview img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.produto-preview h4 {
+    color: #a55728;
+}
+
+.produto-preview .preco {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* Botão para salvar */
+.save-btn {
+    background-color: #a55728;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.save-btn:hover {
+    background-color: #7a3f1e;
+}
+
+/* Barra de pesquisa */
+#barra-pesquisa {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: block;
+    margin: 10px auto;
+}
+
+/* Garante que o conteúdo principal ocupe todo o espaço disponível antes do rodapé */
+main {
+    flex: 1;
+}
+
+.navbar .nav-links a.active,
+.navbar .nav-links a:hover {
+    background-color: #7a3f1e;
+}

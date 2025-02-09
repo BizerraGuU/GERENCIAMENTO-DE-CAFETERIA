@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Produtos</title>
+    <link rel="stylesheet" href="menu.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html"><img src="./imagens/logo.png" alt="Logo"></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Menu</a></li>
+            <li><a href="menu.html" class="active">Gerenciar Produtos</a></li>
+        </ul>
+    </header>
+
+    <main>
+        <h1>Gerenciar Produtos</h1>
+
+        <!-- Botão para abrir o menu retrátil -->
+        <button id="open-menu" class="open-menu-btn">Adicionar Novo Produto</button>
+
+        <!-- Barra de pesquisa -->
+        <input type="text" id="barra-pesquisa" placeholder="Buscar produtos..." onkeyup="filtrarProdutos()">
+
+        <div id="produtos-container" class="produtos-container">
+            <!-- Produtos serão carregados aqui via JavaScript -->
+        </div>
+
+        <!-- Menu retrátil para adicionar produto -->
+        <div id="menu-retratil" class="menu-retratil">
+            <span id="close-menu" class="close-btn">&times;</span>
+            <h2>Adicionar Produto</h2>
+            <form id="form-produto">
+                <input type="text" id="nome" placeholder="Nome do Produto" required>
+                <textarea id="descricao" placeholder="Descrição" required></textarea>
+                <input type="number" id="preco" step="0.01" placeholder="Preço" required>
+                <input type="file" id="imagem" accept="image/png, image/jpeg">
+                
+                <!-- Pré-visualização do card do produto -->
+                <h3>Pré-visualização</h3>
+                <div class="produto-preview">
+                    <img id="preview-imagem" src="imagens/default.jpg" alt="Prévia">
+                    <h4 id="preview-nome">Nome do Produto</h4>
+                    <p id="preview-descricao">Descrição do produto</p>
+                    <p class="preco" id="preview-preco">R$ 0.00</p>
+                </div>
+
+                <button type="submit" class="save-btn">Adicionar</button>
+            </form>
+        </div>
+
+        <!-- Modal de edição -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span id="close-modal" class="close-btn">&times;</span>
+                <h2>Editar Produto</h2>
+                <form id="form-editar-produto">
+                    <input type="hidden" id="produto-id">
+                    
+                    <label for="editar-nome">Nome:</label>
+                    <input type="text" id="editar-nome" required>
+                    
+                    <label for="editar-descricao">Descrição:</label>
+                    <textarea id="editar-descricao" required></textarea>
+
+                    <label for="editar-preco">Preço:</label>
+                    <input type="number" id="editar-preco" step="0.01" required>
+
+                    <label for="editar-imagem">Imagem:</label>
+                    <input type="file" id="editar-imagem" accept="image/png, image/jpeg">
+                    
+                    <!-- Pré-visualização da imagem atual -->
+                    <div class="editar-imagem-preview-container">
+                        <img id="editar-imagem-preview" src="imagens/default.jpg" alt="Prévia da Imagem Atual">
+                    </div>
+
+                    <button type="submit" class="save-btn">Salvar Alterações</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="produtos-container" class="produtos-container">
+            <!-- Produtos serão carregados aqui via JavaScript -->
+        </div>
+    </main>
+
+    <footer class="rodape">
+        <p>© 2025 Cafeteria com Amor. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

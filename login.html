@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Cafeteria</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html"><img src="./imagens/logo.png" alt="Logo Cafeteria"></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Menu</a></li>
+            <li><a href="login.html" class="active">Login</a></li>
+        </ul>
+    </nav>    
+    
+    <div class="login-container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <label for="username">Usuário</label>
+            <input type="text" id="username" name="username" placeholder="Digite seu usuário" required>
+            <label for="password">Senha</label>
+            <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <p id="errorMessage" class="error"></p>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="rodape">
+        <p>© 2025 Cafeteria com Amor. Todos os direitos reservados.</p>
+    </footer>
+    
+    <script src="login.js"></script>
+</body>
+</html>

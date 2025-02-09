@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafeteria - Menu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html"><img src="./imagens/logo.png" alt="Logo Cafeteria"></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Menu</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </nav>    
+
+    <!-- Cabeçalho -->
+    <header class="header">
+        <div class="header-content">
+            <h1>Cafeteria com Amor</h1>
+            <p>Sua experiência perfeita com cafés e delícias.</p>
+        </div>
+    </header>
+
+    <!-- Especialidades (Menu) -->
+    <h2>Nosso menu</h2>
+
+    <!-- Barra de pesquisa -->
+    <input type="text" id="barra-pesquisa" placeholder="Buscar produtos..." onkeyup="filtrarProdutos()">
+    
+    <div id="produtos-container" class="produtos-container">
+        <!-- Produtos serão carregados aqui via JavaScript -->
+    </div>
+    </section>
+
+    <!-- Galeria -->
+    <section id="galeria" class="galeria">
+        <h2>Nossa Galeria</h2>
+        <div class="grid">
+            <img src="./imagens/galeria1.jpg" alt="Café e Pão de Queijo">
+            <img src="./imagens/galeria2.jpg" alt="Cappuccino">
+            <img src="./imagens/galeria3.jpg" alt="Bolos Variados">
+            <img src="./imagens/galeria4.jpg" alt="Mesa de Cafeteria">
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="rodape">
+        <p>© 2025 Cafeteria com Amor. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="cardapio.js"></script>
+</body>
+</html>
