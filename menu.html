@@ -23,6 +23,19 @@
         <!-- Botão para abrir o menu retrátil -->
         <button id="open-menu" class="open-menu-btn">Adicionar Novo Produto</button>
 
+        <!-- Botão para ver vendas -->
+        <button id="btn-ver-vendas" onclick="abrirModalVendas()">📜 Ver Vendas</button>
+
+        <!-- Modal de Vendas -->
+        <div id="modal-vendas" class="modal">
+            <div class="modal-content">
+                <span class="fechar" onclick="fecharModalVendas()">❌</span>
+                <h2>Histórico de Vendas</h2>
+                <div id="lista-vendas"></div>
+                <button id="finalizar-pedido" onclick="fecharModalVendas()">Fechar</button>
+            </div>
+        </div>
+
         <!-- Barra de pesquisa -->
         <input type="text" id="barra-pesquisa" placeholder="Buscar produtos..." onkeyup="filtrarProdutos()">
 

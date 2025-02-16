@@ -181,3 +181,52 @@ function filtrarProdutos() {
         }
     });
 }
+
+// Abrir o modal de vendas
+function abrirModalVendas() {
+    document.getElementById("modal-vendas").style.display = "flex";
+    carregarVendas();
+}
+
+// Fechar o modal de vendas
+function fecharModalVendas() {
+    document.getElementById("modal-vendas").style.display = "none";
+}
+
+// Buscar e exibir as vendas no modal
+function carregarVendas() {
+    fetch("http://127.0.0.1:5000/vendas")
+        .then(response => response.json())
+        .then(data => {
+            const listaVendas = document.getElementById("lista-vendas");
+            listaVendas.innerHTML = "";
+
+            if (data.length === 0) {
+                listaVendas.innerHTML = "<p>Nenhuma venda registrada.</p>";
+                return;
+            }
+
+            data.forEach(venda => {
+                let vendaDiv = document.createElement("div");
+                vendaDiv.classList.add("venda-item");
+
+                let vendaInfo = `
+                    <h3>Venda #${venda.id}</h3>
+                    <p>Data: ${venda.data}</p>
+                    <p>Total: R$ ${venda.total.toFixed(2)}</p>
+                    <ul>
+                        ${venda.itens.map(item => `
+                            <li>${item.quantidade}x ${item.nome} - R$ ${item.preco_unitario.toFixed(2)}</li>
+                        `).join("")}
+                    </ul>
+                    <hr>
+                `;
+
+                vendaDiv.innerHTML = vendaInfo;
+                listaVendas.appendChild(vendaDiv);
+            });
+        })
+        .catch(error => {
+            console.error("Erro ao carregar vendas:", error);
+        });
+}

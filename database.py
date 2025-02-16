@@ -32,6 +32,28 @@ cursor.execute('''
     )
 ''')
 
+# Criar a tabela de vendas
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS tb_vendas (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        data TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        total REAL NOT NULL
+    )
+''')
+
+# Criar a tabela de itens vendidos
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS tb_itens_venda (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        venda_id INTEGER NOT NULL,
+        produto_id INTEGER NOT NULL,
+        quantidade INTEGER NOT NULL,
+        preco_unitario REAL NOT NULL,
+        FOREIGN KEY (venda_id) REFERENCES tb_vendas(id),
+        FOREIGN KEY (produto_id) REFERENCES tb_produtos(id)
+    )
+''')
+
 # Criar um usuário administrador padrão (se não existir)
 cursor.execute("SELECT COUNT(*) FROM tb_usuarios")
 if cursor.fetchone()[0] == 0:

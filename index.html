@@ -49,6 +49,42 @@
         </div>
     </section>
 
+<!-- Carrinho e botão de Último Pedido -->
+<div id="carrinho-container">
+    <button id="btn-ver-pedido" onclick="abrirModalUltimoPedido()">📜 Pedido</button>
+    <div id="icone-carrinho" onclick="toggleCarrinho()">🛒<span id="contador-carrinho">0</span></div>
+</div>
+
+<!-- Menu retrátil do carrinho -->
+<div id="carrinho">
+    <button id="btn-fechar-carrinho" onclick="toggleCarrinho()">❌</button>
+    <h2>Seu Carrinho</h2>
+    <ul id="lista-carrinho"></ul>
+    <p id="total-carrinho">Total: R$ 0,00</p>
+    <button id="finalizar-pedido" onclick="finalizarPedido()">Finalizar Pedido</button>
+</div>
+
+<!-- Modal Pedido Finalizado -->
+<div id="modal-pedido" class="modal">
+    <div class="modal-content">
+        <span class="fechar" onclick="fecharModal()">❌</span>
+        <h2>Pedido Finalizado!</h2>
+        <ul id="detalhes-pedido"></ul>
+        <p id="total-pedido"></p>
+        <button id="finalizar-pedido" onclick="fecharModal()">Fechar</button>
+    </div>
+</div>
+
+<!-- Modal Último Pedido -->
+<div id="modal-ultimo-pedido" class="modal">
+    <div class="modal-content">
+        <span class="fechar" onclick="fecharModalUltimoPedido()">❌</span>
+        <h2>Último Pedido</h2>
+        <ul id="lista-ultimo-pedido"></ul>
+        <p id="total-ultimo-pedido"></p>
+        <button id="finalizar-pedido" onclick="fecharModalUltimoPedido()">Fechar</button>
+    </div>
+</div>
     <!-- Rodapé -->
     <footer class="rodape">
         <p>© 2025 Cafeteria com Amor. Todos os direitos reservados.</p>

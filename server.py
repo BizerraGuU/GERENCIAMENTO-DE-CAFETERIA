@@ -124,5 +124,76 @@ def login():
         return jsonify({"mensagem": "Usuário ou senha incorretos!", "status": "erro"}), 401
 
 
+# Rota para registrar uma venda
+@app.route("/vendas", methods=["POST"])
+def registrar_venda():
+    dados = request.json
+    print("Dados recebidos:", dados)  # Verifica os dados no terminal
+
+    itens = dados.get("itens", [])
+    
+    if not itens:
+        return jsonify({"erro": "Nenhum item no pedido"}), 400
+
+    total = sum(item.get("preco", 0) * item.get("quantidade", 1) for item in itens)
+
+    conn = conectar_banco()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("INSERT INTO tb_vendas (total) VALUES (?)", (total,))
+        venda_id = cursor.lastrowid
+
+        for item in itens:
+            produto_id = item.get("produto_id")
+            quantidade = item.get("quantidade", 1)
+            preco = item.get("preco", 0)
+
+            if not produto_id:  # Se não houver ID, retorna erro
+                return jsonify({"erro": "Produto sem ID válido"}), 400
+
+            cursor.execute(
+                "INSERT INTO tb_itens_venda (venda_id, produto_id, quantidade, preco_unitario) VALUES (?, ?, ?, ?)",
+                (venda_id, produto_id, quantidade, preco)
+            )
+
+        conn.commit()
+        return jsonify({"mensagem": "Venda registrada com sucesso!", "venda_id": venda_id})
+
+    except sqlite3.Error as e:
+        conn.rollback()
+        return jsonify({"erro": f"Erro ao registrar venda: {str(e)}"}), 500
+
+    finally:
+        conn.close()
+
+# Rota para visualizar todas as vendas
+@app.route("/vendas", methods=["GET"])
+def listar_vendas():
+    conn = conectar_banco()
+    cursor = conn.cursor()
+
+    # Buscar todas as vendas
+    cursor.execute("SELECT id, data, total FROM tb_vendas")
+    vendas = cursor.fetchall()
+
+    vendas_json = []
+    for venda in vendas:
+        venda_id, data, total = venda
+
+        # Buscar itens da venda
+        cursor.execute(
+            "SELECT p.nome, iv.quantidade, iv.preco_unitario FROM tb_itens_venda iv JOIN tb_produtos p ON iv.produto_id = p.id WHERE iv.venda_id = ?",
+            (venda_id,)
+        )
+        itens = cursor.fetchall()
+
+        itens_json = [{"nome": item[0], "quantidade": item[1], "preco_unitario": item[2]} for item in itens]
+
+        vendas_json.append({"id": venda_id, "data": data, "total": total, "itens": itens_json})
+
+    conn.close()
+    return jsonify(vendas_json)
+
 if __name__ == "__main__":
     app.run(debug=True)
