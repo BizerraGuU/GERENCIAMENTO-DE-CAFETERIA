@@ -193,7 +193,46 @@ function fecharModalVendas() {
     document.getElementById("modal-vendas").style.display = "none";
 }
 
-// Buscar e exibir as vendas no modal
+// ✅ Função para filtrar vendas por ID, data ou nome do produto
+function filtrarVendas() {
+    const termo = document.getElementById("barra-pesquisa-vendas").value.toLowerCase();
+    const dataFiltro = document.getElementById("filtro-data").value;
+    const vendas = document.querySelectorAll(".venda-item");
+
+    vendas.forEach(venda => {
+        const idVenda = venda.querySelector(".venda-id").textContent.toLowerCase();
+        const dataVenda = venda.querySelector(".venda-data").textContent.toLowerCase();
+        const itensVenda = venda.querySelector(".venda-itens").textContent.toLowerCase();
+
+        let corresponde = false;
+
+        // Verifica se o ID, data ou itens contêm o termo pesquisado
+        if (idVenda.includes(termo) || itensVenda.includes(termo)) {
+            corresponde = true;
+        }
+
+        // Verifica se a data coincide com a selecionada
+        if (dataFiltro && !dataVenda.includes(dataFiltro)) {
+            corresponde = false;
+        }
+
+        // Exibe ou oculta a venda
+        venda.style.display = corresponde ? "block" : "none";
+    });
+
+    console.log("Termo buscado:", termo);
+console.log("Data filtro:", dataFiltro);
+
+vendas.forEach(venda => {
+    console.log("Verificando venda:", venda);
+    console.log("ID:", venda.querySelector(".venda-id")?.textContent);
+    console.log("Data:", venda.querySelector(".venda-data")?.textContent);
+    console.log("Itens:", venda.querySelector(".venda-itens")?.textContent);
+});
+
+}
+
+
 function carregarVendas() {
     fetch("http://127.0.0.1:5000/vendas")
         .then(response => response.json())
@@ -210,19 +249,18 @@ function carregarVendas() {
                 let vendaDiv = document.createElement("div");
                 vendaDiv.classList.add("venda-item");
 
-                let vendaInfo = `
-                    <h3>Venda #${venda.id}</h3>
-                    <p>Data: ${venda.data}</p>
-                    <p>Total: R$ ${venda.total.toFixed(2)}</p>
-                    <ul>
-                        ${venda.itens.map(item => `
-                            <li>${item.quantidade}x ${item.nome} - R$ ${item.preco_unitario.toFixed(2)}</li>
-                        `).join("")}
+                vendaDiv.innerHTML = `
+                    <h3 class="venda-id">Pedido #${venda.id}</h3>
+                    <p class="venda-data">Data: ${venda.data}</p>
+                    <p class="venda-total">Total: R$ ${venda.total.toFixed(2)}</p>
+                    <ul class="venda-itens">
+                        ${venda.itens.map(item => 
+                            `<li>${item.quantidade}x ${item.nome} - R$ ${item.preco_unitario.toFixed(2)}</li>`
+                        ).join("")}
                     </ul>
                     <hr>
                 `;
 
-                vendaDiv.innerHTML = vendaInfo;
                 listaVendas.appendChild(vendaDiv);
             });
         })
@@ -230,3 +268,4 @@ function carregarVendas() {
             console.error("Erro ao carregar vendas:", error);
         });
 }
+

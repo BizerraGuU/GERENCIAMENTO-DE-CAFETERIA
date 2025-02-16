@@ -65,6 +65,28 @@ cursor.execute("SELECT COUNT(*) FROM tb_produtos")
 if cursor.fetchone()[0] == 0:
     cursor.executemany("INSERT INTO tb_produtos (nome, descricao, preco, imagem) VALUES (?, ?, ?, ?)", produtos_iniciais)
 
+# Criar TRIGGER para atualizar o total da venda automaticamente
+cursor.execute('''
+    CREATE TRIGGER IF NOT EXISTS atualizar_total_venda
+    AFTER INSERT ON tb_itens_venda
+    FOR EACH ROW
+    BEGIN
+        UPDATE tb_vendas
+        SET total = (SELECT SUM(quantidade * preco_unitario) FROM tb_itens_venda WHERE venda_id = NEW.venda_id)
+        WHERE id = NEW.venda_id;
+    END;
+''')
+
+# Criar VIEW para visualizar todas as vendas com detalhes
+cursor.execute('''
+    CREATE VIEW IF NOT EXISTS view_vendas_detalhadas AS
+    SELECT v.id AS venda_id, v.data, p.nome AS produto, iv.quantidade, iv.preco_unitario,
+           (iv.quantidade * iv.preco_unitario) AS subtotal
+    FROM tb_vendas v
+    JOIN tb_itens_venda iv ON v.id = iv.venda_id
+    JOIN tb_produtos p ON iv.produto_id = p.id;
+''')
+
 # Salvar e fechar conexão
 conn.commit()
 conn.close()
