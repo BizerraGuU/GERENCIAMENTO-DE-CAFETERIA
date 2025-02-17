@@ -1,7 +1,7 @@
 # GERENCIAMENTO-DE-CAFETERIA
 
 ### Para executar o código, primeiro baixe as depêndencias python:
-> `pip install flask flask-cors werkzeug;`
+> `pip install flask flask-cors werkzeug`
 
 ### A segunda etapa é rodar script do banco de dados:
 > `python database.py`
